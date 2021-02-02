@@ -3,7 +3,7 @@ import Link from 'next/link'
 
 
 const IndexPage = (): JSX.Element => (
-  <Layout title="Home | Next.js + TypeScript Example">
+  <Layout title="Eduard Iskandarov's home page">
     <div className="h-2 bg-indigo-600" />
 
     <div className="text-center break-words text-gray-900 dark:text-white">
