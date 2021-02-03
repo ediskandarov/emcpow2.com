@@ -43,17 +43,21 @@ const links = [
 
 const SocialLinks = () => {
   const listItems = links.map((item) => (
-    <div className="h-8 w-8 m-6">
+    <div className="h-6 w-6 my-6 sm:h-7 sm:w-7 sm:mx-6">
       <a
         href={item.address}
         target="_blank"
-        className="text-yellow-600 hover:underline text-2xl"
+        className="text-yellow-600 hover:underline text-xl"
       >
         <FontAwesomeIcon icon={item.icon} />
       </a>
     </div>
   ));
 
-  return <div className="flex flex-row justify-center">{listItems}</div>;
+  return (
+    <div className="flex flex-row justify-around sm:justify-center">
+      {listItems}
+    </div>
+  );
 };
 export default SocialLinks;
