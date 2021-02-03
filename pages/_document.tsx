@@ -1,11 +1,17 @@
-import Document, { DocumentContext, Html, Head, Main, NextScript } from 'next/document'
-import {YM_ACCOUNT_ID} from "../lib/yandex"
+import Document, {
+  DocumentContext,
+  Html,
+  Head,
+  Main,
+  NextScript,
+} from "next/document";
+import { YM_ACCOUNT_ID } from "../lib/yandex";
 
 class MyDocument extends Document {
   static async getInitialProps(ctx: DocumentContext) {
-    const initialProps = await Document.getInitialProps(ctx)
+    const initialProps = await Document.getInitialProps(ctx);
 
-    return initialProps
+    return initialProps;
   }
 
   render() {
@@ -13,8 +19,8 @@ class MyDocument extends Document {
       <Html className="dark">
         <Head>
           {/* <!-- Yandex.Metrika counter --> */}
-          <script dangerouslySetInnerHTML={
-            {
+          <script
+            dangerouslySetInnerHTML={{
               __html: `
                 (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
                 m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
@@ -27,9 +33,18 @@ class MyDocument extends Document {
                       webvisor:true
                 });
               `,
-            }
-          }/>
-          <noscript><div><img src={`https://mc.yandex.ru/watch/${YM_ACCOUNT_ID}`} className="absolute" style={{left:"-9999px"}} alt="" /></div></noscript>
+            }}
+          />
+          <noscript>
+            <div>
+              <img
+                src={`https://mc.yandex.ru/watch/${YM_ACCOUNT_ID}`}
+                className="absolute"
+                style={{ left: "-9999px" }}
+                alt=""
+              />
+            </div>
+          </noscript>
           {/* <!-- /Yandex.Metrika counter --> */}
         </Head>
         <body className="bg-white dark:bg-black">
@@ -37,8 +52,8 @@ class MyDocument extends Document {
           <NextScript />
         </body>
       </Html>
-    )
+    );
   }
 }
 
-export default MyDocument
+export default MyDocument;
