@@ -1,4 +1,5 @@
 import Layout from "../components/Layout";
+import SocialLinks from "../components/SocialLinks";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -38,11 +39,12 @@ const IndexPage = (): JSX.Element => (
           Aside from software, I built teams that work autonomously and yield
           outstanding results. 🍰
         </p>
-        <p className="my-6">
+        <p className="mt-6">
           I like to code serverless applications using Python, TypeScript, focus
           on security and automation. 🚀
         </p>
       </main>
+      <SocialLinks />
     </div>
   </Layout>
 );
