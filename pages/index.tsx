@@ -4,7 +4,10 @@ import Image from "next/image";
 import Link from "next/link";
 
 const IndexPage = (): JSX.Element => (
-  <Layout title="Eduard Iskandarov's home page">
+  <Layout
+    title="Eduard Iskandarov's home page"
+    description="Hello, this is Eduard. Here you will find out who I am and some useful bits of knowledge."
+  >
     <figure className="sm:w-max mx-auto sm:mt-6">
       <Image
         className="sm:rounded-3xl"
