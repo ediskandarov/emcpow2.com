@@ -1,47 +1,41 @@
-import matter from "gray-matter";
-import fs from "fs";
-import { GetStaticProps } from "next";
 import PostLayout from "../../components/PostLayout";
+import { getAllPosts } from "../../lib/api";
+import Post from "../../types/post";
+import Link from "next/link";
 
-const Blog = ({ posts }) => (
+type Props = {
+  allPosts: Post[];
+};
+
+const Blog = ({ allPosts }: Props) => (
   <PostLayout title="blog index" description="blog index description">
     <main>
       <ul>
-        {posts.map((post) => (
-          <div>
-            <h1>{post.frontmatter.title}</h1>
-          </div>
+        {allPosts.map((post) => (
+          <li key={post.slug}>
+            <Link href={`/posts/${post.slug}`}>
+              <a>{post.title}</a>
+            </Link>
+          </li>
         ))}
       </ul>
     </main>
   </PostLayout>
 );
 
-export const getStaticProps: GetStaticProps = async () => {
-  const files = fs.readdirSync(`${process.cwd()}/content/posts`);
+export default Blog;
 
-  const posts = files.map((filename) => {
-    const markdownWithMetadata = fs
-      .readFileSync(`content/posts/${filename}`)
-      .toString();
-
-    const { data, content } = matter(markdownWithMetadata);
-    const frontmatter = {
-      ...data,
-      content,
-    };
-
-    return {
-      slug: filename.replace(".md", ""),
-      frontmatter,
-    };
-  });
+export const getStaticProps = async () => {
+  const allPosts = getAllPosts([
+    "title",
+    "date",
+    "slug",
+    "author",
+    "coverImage",
+    "excerpt",
+  ]);
 
   return {
-    props: {
-      posts,
-    },
+    props: { allPosts },
   };
 };
-
-export default Blog;

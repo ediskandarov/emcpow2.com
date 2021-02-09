@@ -9,7 +9,7 @@ type Props = {
 
 const PostLayout = ({ children, title, description }: Props) => (
   <Layout title={title} description={description}>
-    <div className="prose dark:prose-light">{children}</div>
+    <article className="prose dark:prose-light">{children}</article>
   </Layout>
 );
 

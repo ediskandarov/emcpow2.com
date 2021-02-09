@@ -5,11 +5,9 @@ import PostType from "../../types/post";
 
 type Props = {
   post: PostType;
-  morePosts: PostType[];
-  preview?: boolean;
 };
 
-const Post = ({ post, morePosts, preview }: Props): JSX.Element => {
+const Post = ({ post }: Props): JSX.Element => {
   return (
     <PostLayout title={post.title} description={post.description}>
       <ReactMarkdown source={post.content} />
