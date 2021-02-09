@@ -1,54 +1,64 @@
-import matter from "gray-matter";
-import fs from "fs";
-import path from "path";
-import { GetStaticProps, GetStaticPaths } from "next";
 import ReactMarkdown from "react-markdown";
 import PostLayout from "../../components/PostLayout";
+import { getAllPosts, getPostBySlug } from "../../lib/api";
+import PostType from "../../types/post";
 
 type Props = {
-  content: string;
-  frontmatter: {
-    title: string;
-    description: string;
-  };
+  post: PostType;
+  morePosts: PostType[];
+  preview?: boolean;
 };
 
-const Post = ({ content, frontmatter }: Props): JSX.Element => {
+const Post = ({ post, morePosts, preview }: Props): JSX.Element => {
   return (
-    <PostLayout title={frontmatter.title} description={frontmatter.description}>
-      <ReactMarkdown source={content} />
+    <PostLayout title={post.title} description={post.description}>
+      <ReactMarkdown source={post.content} />
     </PostLayout>
   );
 };
 
 export default Post;
 
-export const getStaticPaths: GetStaticPaths = async () => {
-  const files = fs.readdirSync("content/posts");
-  const paths = files.map((filename) => ({
-    params: {
-      slug: filename.replace(".md", ""),
-    },
-  }));
-
-  return {
-    paths,
-    fallback: false,
+type Params = {
+  params: {
+    slug: string;
   };
 };
 
-export const getStaticProps: GetStaticProps = async ({ params: { slug } }) => {
-  const markdownWithMetadata = fs
-    .readFileSync(path.join("content/posts", slug + ".md"))
-    .toString();
-
-  const { data, content } = matter(markdownWithMetadata);
-  const frontmatter = { ...data };
+export const getStaticProps = async ({ params }: Params) => {
+  const post = getPostBySlug(params.slug, [
+    "title",
+    "description",
+    "date",
+    "slug",
+    "author",
+    "content",
+    "ogImage",
+    "coverImage",
+  ]);
+  const content = post.content || "";
 
   return {
     props: {
-      content,
-      frontmatter,
+      post: {
+        ...post,
+        content,
+      },
     },
+  };
+};
+
+export const getStaticPaths = async () => {
+  const posts = getAllPosts(["slug"]);
+
+  return {
+    paths: posts.map((posts) => {
+      return {
+        params: {
+          slug: posts.slug,
+        },
+      };
+    }),
+    fallback: false,
   };
 };
