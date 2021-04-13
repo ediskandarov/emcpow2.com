@@ -99,7 +99,7 @@ As a last resort, a spreadsheet could be a competitor to any information system.
 
 ## Have an idea of the startup's business model.
 
-By now, you have an answer to many questions. What product are you building, who are you, the customer. It now time to come up with a sustainable business model.
+By now, you have an answer to many questions. What product are you building, your customers. It now time to come up with a sustainable business model.
 
 There should be a revenue stream that will bring users to the product. Do not disperse efforts creating many revenue streams. Focus on one, but make it work.
 
